@@ -1,0 +1,303 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);color:var(--color-text-primary);line-height:1.6;font-size:14px}
+h2{font-size:18px;font-weight:500;margin-bottom:4px}
+h3{font-size:15px;font-weight:500;margin-bottom:8px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.label{font-size:11px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:6px}
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px}
+.b-teal{background:#E1F5EE;color:#085041}
+.b-purple{background:#EEEDFE;color:#26215C}
+.b-amber{background:#FAEEDA;color:#412402}
+.b-blue{background:#E6F1FB;color:#042C53}
+.b-red{background:#FCEBEB;color:#501313}
+.b-gray{background:#F1EFE8;color:#2C2C2A}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:20px;border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);margin:2px 2px 2px 0}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem}
+.accent-teal{border-left:3px solid #1D9E75;border-radius:0}
+.accent-purple{border-left:3px solid #7F77DD;border-radius:0}
+.accent-amber{border-left:3px solid #EF9F27;border-radius:0}
+.accent-blue{border-left:3px solid #378ADD;border-radius:0}
+.grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.row{display:flex;gap:6px;align-items:flex-start;margin-bottom:7px}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.d-teal{background:#1D9E75}
+.d-purple{background:#7F77DD}
+.d-amber{background:#EF9F27}
+.d-blue{background:#378ADD}
+.item-text{font-size:13px;color:var(--color-text-secondary);line-height:1.5}
+.overlap{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:8px 10px;margin-bottom:6px;font-size:12px;color:var(--color-text-secondary)}
+.overlap strong{color:var(--color-text-primary);font-weight:500}
+.matrix{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.matrix th{text-align:left;font-weight:500;font-size:11px;color:var(--color-text-secondary);padding:7px 8px;border-bottom:1px solid var(--color-border-tertiary);background:var(--color-background-secondary)}
+.matrix td{padding:7px 8px;border-bottom:0.5px solid var(--color-border-tertiary);vertical-align:top;color:var(--color-text-secondary);line-height:1.45}
+.matrix tr:last-child td{border-bottom:none}
+.matrix .domain-col{color:var(--color-text-primary);font-weight:500;width:14%;white-space:nowrap}
+.cell-p{background:#E1F5EE20}
+.cell-s{background:#EEEDFE20}
+.cell-h{background:#F1EFE820}
+.pip{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.pip-p{background:#1D9E75}
+.pip-s{background:#7F77DD}
+.pip-h{background:#D3D1C7}
+.legend-row{display:flex;gap:16px;align-items:center;margin:8px 0 12px;font-size:12px;color:var(--color-text-secondary)}
+.skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;margin-top:8px}
+.skill-item{font-size:12px;color:var(--color-text-secondary);padding:4px 8px;border-radius:4px;background:var(--color-background-secondary);display:flex;align-items:center;gap:6px}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:16px 0}
+.section-head{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px}
+</style>
+
+<h2 class="sr-only">UAV Fleet Project — 4-person mixed-role team plan with parallel workstreams</h2>
+
+<div style="padding:0.5rem 0">
+
+<div class="label">Four mixed-role profiles — all active in parallel</div>
+<div class="grid4" style="margin-bottom:14px">
+
+<div class="card accent-teal">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+    <div>
+      <div class="label" style="color:#0F6E56">Person 1</div>
+      <h3>Build + Simulation</h3>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+      <span class="badge b-teal">Mechanical</span>
+      <span class="badge b-gray">FEA / CFD</span>
+    </div>
+  </div>
+  <div class="row"><div class="dot d-teal"></div><div class="item-text"><strong style="color:var(--color-text-primary)">Primary</strong> — airframe procurement, drone assembly, docking station fabrication, payload rail, 3D printing, CFRP layup (Phase 2)</div></div>
+  <div class="row"><div class="dot d-purple"></div><div class="item-text"><strong style="color:var(--color-text-primary)">Secondary</strong> — ANSYS Mechanical FEA on frame, CFD of fuselage shell (Phase 2), SITL Gazebo world geometry</div></div>
+  <div class="row"><div class="dot" style="background:#D3D1C7"></div><div class="item-text"><strong style="color:var(--color-text-primary)">Shared</strong> — BOM tracking, all physical integration sessions, wiring routing inside airframe</div></div>
+  <hr class="divider">
+  <div class="label">Skills to acquire</div>
+  <div class="skill-grid">
+    <div class="skill-item"><i class="ti ti-3d-cube-sphere" aria-hidden="true" style="font-size:14px;color:#1D9E75"></i>Fusion360 CAD</div>
+    <div class="skill-item"><i class="ti ti-atom" aria-hidden="true" style="font-size:14px;color:#1D9E75"></i>ANSYS Mechanical</div>
+    <div class="skill-item"><i class="ti ti-printer" aria-hidden="true" style="font-size:14px;color:#1D9E75"></i>3D printing (FDM)</div>
+    <div class="skill-item"><i class="ti ti-layers-difference" aria-hidden="true" style="font-size:14px;color:#1D9E75"></i>CFRP wet layup</div>
+    <div class="skill-item"><i class="ti ti-tools" aria-hidden="true" style="font-size:14px;color:#1D9E75"></i>Mechanical assembly</div>
+    <div class="skill-item"><i class="ti ti-wind" aria-hidden="true" style="font-size:14px;color:#1D9E75"></i>OpenFOAM basics</div>
+  </div>
+</div>
+
+<div class="card accent-amber">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+    <div>
+      <div class="label" style="color:#854F0B">Person 2</div>
+      <h3>Electrical + Propulsion</h3>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+      <span class="badge b-amber">Power / ESC</span>
+      <span class="badge b-gray">Instrumentation</span>
+    </div>
+  </div>
+  <div class="row"><div class="dot d-amber"></div><div class="item-text"><strong style="color:var(--color-text-primary)">Primary</strong> — all wiring, power distribution, isolated DC-DC rails, ESC FOC config, thrust stand testing, acoustic measurement, vibration measurement</div></div>
+  <div class="row"><div class="dot d-purple"></div><div class="item-text"><strong style="color:var(--color-text-primary)">Secondary</strong> — MATLAB battery Thevenin model, battery characterization dataset, docking charging station electronics (Meanwell + pogo-pin contact)</div></div>
+  <div class="row"><div class="dot" style="background:#D3D1C7"></div><div class="item-text"><strong style="color:var(--color-text-primary)">Shared</strong> — power wiring inside drone (with P1), thermal heatsink + fan installation, ESC parameter hand-off to P3</div></div>
+  <hr class="divider">
+  <div class="label">Skills to acquire</div>
+  <div class="skill-grid">
+    <div class="skill-item"><i class="ti ti-flame" aria-hidden="true" style="font-size:14px;color:#EF9F27"></i>Soldering (high-current)</div>
+    <div class="skill-item"><i class="ti ti-adjustments-alt" aria-hidden="true" style="font-size:14px;color:#EF9F27"></i>BLHeli32 / FOC tuning</div>
+    <div class="skill-item"><i class="ti ti-dashboard" aria-hidden="true" style="font-size:14px;color:#EF9F27"></i>Oscilloscope usage</div>
+    <div class="skill-item"><i class="ti ti-activity" aria-hidden="true" style="font-size:14px;color:#EF9F27"></i>Thrust stand + DAQ</div>
+    <div class="skill-item"><i class="ti ti-microphone" aria-hidden="true" style="font-size:14px;color:#EF9F27"></i>Acoustic measurement</div>
+    <div class="skill-item"><i class="ti ti-chart-area" aria-hidden="true" style="font-size:14px;color:#EF9F27"></i>MATLAB power model</div>
+  </div>
+</div>
+
+<div class="card accent-purple">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+    <div>
+      <div class="label" style="color:#534AB7">Person 3</div>
+      <h3>Flight Systems + SLAM</h3>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+      <span class="badge b-purple">PX4 / Avionics</span>
+      <span class="badge b-gray">LiDAR / VIO</span>
+    </div>
+  </div>
+  <div class="row"><div class="dot d-purple"></div><div class="item-text"><strong style="color:var(--color-text-primary)">Primary</strong> — PX4 setup, sensor calibration, PID tuning, MAVLink, failsafes, SOC-triggered RTH, PX4 SITL + Gazebo, EKF battery model integration</div></div>
+  <div class="row"><div class="dot d-teal"></div><div class="item-text"><strong style="color:var(--color-text-primary)">Secondary</strong> — FAST-LIO2 LiDAR SLAM, RealSense VIO pipeline, EKF3 LiDAR aiding, navigation state machine (GPS → VIO → dead reckoning)</div></div>
+  <div class="row"><div class="dot" style="background:#D3D1C7"></div><div class="item-text"><strong style="color:var(--color-text-primary)">Shared</strong> — ROS2 topic architecture (with P4), SITL world used by P4 for AI benchmarks, docking approach simulation</div></div>
+  <hr class="divider">
+  <div class="label">Skills to acquire</div>
+  <div class="skill-grid">
+    <div class="skill-item"><i class="ti ti-terminal" aria-hidden="true" style="font-size:14px;color:#7F77DD"></i>Linux / Ubuntu</div>
+    <div class="skill-item"><i class="ti ti-plane" aria-hidden="true" style="font-size:14px;color:#7F77DD"></i>PX4 + QGroundControl</div>
+    <div class="skill-item"><i class="ti ti-box" aria-hidden="true" style="font-size:14px;color:#7F77DD"></i>Gazebo Classic 11</div>
+    <div class="skill-item"><i class="ti ti-arrows-join" aria-hidden="true" style="font-size:14px;color:#7F77DD"></i>EKF2 / EKF3 tuning</div>
+    <div class="skill-item"><i class="ti ti-scan" aria-hidden="true" style="font-size:14px;color:#7F77DD"></i>FAST-LIO2 / LIO-SAM</div>
+    <div class="skill-item"><i class="ti ti-radar" aria-hidden="true" style="font-size:14px;color:#7F77DD"></i>ROS2 Humble</div>
+  </div>
+</div>
+
+<div class="card accent-blue">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+    <div>
+      <div class="label" style="color:#185FA5">Person 4</div>
+      <h3>AI + Comms + Fleet</h3>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+      <span class="badge b-blue">Jetson / Vision</span>
+      <span class="badge b-gray">Mesh / GCS</span>
+    </div>
+  </div>
+  <div class="row"><div class="dot d-blue"></div><div class="item-text"><strong style="color:var(--color-text-primary)">Primary</strong> — Jetson setup (JetPack 6), YOLOv8 TensorRT, SPF framework, AI benchmark campaign, ESP-NOW mesh, TDMA scheduler, LoRa config</div></div>
+  <div class="row"><div class="dot d-teal"></div><div class="item-text"><strong style="color:var(--color-text-primary)">Secondary</strong> — fleet rotation algorithm, docking approach controller (AprilTag + VIO), GCS web interface, energy-aware scheduling node</div></div>
+  <div class="row"><div class="dot" style="background:#D3D1C7"></div><div class="item-text"><strong style="color:var(--color-text-primary)">Shared</strong> — ROS2 nodes (with P3), integration testing, data logging software for all validation campaigns</div></div>
+  <hr class="divider">
+  <div class="label">Skills to acquire</div>
+  <div class="skill-grid">
+    <div class="skill-item"><i class="ti ti-brain" aria-hidden="true" style="font-size:14px;color:#378ADD"></i>TensorRT / CUDA</div>
+    <div class="skill-item"><i class="ti ti-eye" aria-hidden="true" style="font-size:14px;color:#378ADD"></i>YOLOv8 + SPF deploy</div>
+    <div class="skill-item"><i class="ti ti-wifi" aria-hidden="true" style="font-size:14px;color:#378ADD"></i>ESP-NOW / LoRa</div>
+    <div class="skill-item"><i class="ti ti-clock" aria-hidden="true" style="font-size:14px;color:#378ADD"></i>TDMA scheduler</div>
+    <div class="skill-item"><i class="ti ti-chart-dots" aria-hidden="true" style="font-size:14px;color:#378ADD"></i>Fleet algorithms</div>
+    <div class="skill-item"><i class="ti ti-map" aria-hidden="true" style="font-size:14px;color:#378ADD"></i>GCS / Leaflet / Flask</div>
+  </div>
+</div>
+
+</div>
+
+<hr class="divider">
+
+<div class="section-head">Parallel workstream matrix — all four active simultaneously across every domain</div>
+<div class="legend-row">
+  <span><span class="pip pip-p"></span>Primary owner</span>
+  <span><span class="pip pip-s"></span>Secondary contributor</span>
+  <span><span class="pip pip-h"></span>Assists when needed</span>
+</div>
+
+<table class="matrix">
+<thead>
+<tr>
+  <th class="domain-col">Domain</th>
+  <th style="width:22%">P1 — Build + Sim</th>
+  <th style="width:22%">P2 — Elec + Prop</th>
+  <th style="width:22%">P3 — Flight + SLAM</th>
+  <th style="width:22%">P4 — AI + Comms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td class="domain-col">Mechanical</td>
+  <td class="cell-p"><span class="pip pip-p"></span>Frame, fuselage, docking station, payload rail, all fabrication</td>
+  <td class="cell-h"><span class="pip pip-h"></span>Wiring routing, ESC mounting positions</td>
+  <td class="cell-h"><span class="pip pip-h"></span>Sensor mounting, FC vibration isolation</td>
+  <td class="cell-h"><span class="pip pip-h"></span>Jetson tray, antenna placement</td>
+</tr>
+<tr>
+  <td class="domain-col">Electrical</td>
+  <td class="cell-h"><span class="pip pip-h"></span>Physical harness routing inside airframe</td>
+  <td class="cell-p"><span class="pip pip-p"></span>Power distribution, ESC wiring, isolated rails, BMS, pogo-pin dock</td>
+  <td class="cell-s"><span class="pip pip-s"></span>FC power input, MAVLink serial connector</td>
+  <td class="cell-s"><span class="pip pip-s"></span>Jetson rail, antenna connectors</td>
+</tr>
+<tr>
+  <td class="domain-col">Propulsion</td>
+  <td class="cell-h"><span class="pip pip-h"></span>Motor mount geometry, arm spacing</td>
+  <td class="cell-p"><span class="pip pip-p"></span>ESC FOC config, thrust stand testing, motor characterization, acoustic + vibration campaigns</td>
+  <td class="cell-s"><span class="pip pip-s"></span>ESC PWM calibration in PX4, mixing params</td>
+  <td class="cell-h"><span class="pip pip-h"></span>Logging software for thrust stand data</td>
+</tr>
+<tr>
+  <td class="domain-col">Simulation</td>
+  <td class="cell-p"><span class="pip pip-p"></span>ANSYS FEA, CFD (Phase 2), Gazebo world geometry and obstacle models</td>
+  <td class="cell-s"><span class="pip pip-s"></span>MATLAB battery Thevenin model, power budget spreadsheet</td>
+  <td class="cell-p"><span class="pip pip-p"></span>PX4 SITL, Gazebo flight missions, navigation validation in sim</td>
+  <td class="cell-s"><span class="pip pip-s"></span>AI benchmark SITL runs (50 trials/model), mesh network simulation</td>
+</tr>
+<tr>
+  <td class="domain-col">Avionics / PX4</td>
+  <td class="cell-h"><span class="pip pip-h"></span>Physical FC + GPS mounting</td>
+  <td class="cell-s"><span class="pip pip-s"></span>Provides power characterization data for EKF battery params</td>
+  <td class="cell-p"><span class="pip pip-p"></span>Full PX4 setup, calibration, PID tuning, failsafes, MAVLink, RTH logic</td>
+  <td class="cell-s"><span class="pip pip-s"></span>MAVLink subscriber on Jetson, SOC topic publisher</td>
+</tr>
+<tr>
+  <td class="domain-col">SLAM / Nav</td>
+  <td class="cell-h"><span class="pip pip-h"></span>LiDAR physical mounting, cable routing</td>
+  <td class="cell-h"><span class="pip pip-h"></span>—</td>
+  <td class="cell-p"><span class="pip pip-p"></span>FAST-LIO2 build + config, VIO with RealSense, EKF3 external position feed, navigation state machine</td>
+  <td class="cell-s"><span class="pip pip-s"></span>Livox SDK2 + ROS2 driver, RealSense librealsense2 setup</td>
+</tr>
+<tr>
+  <td class="domain-col">AI / Vision</td>
+  <td class="cell-h"><span class="pip pip-h"></span>Camera mounting geometry</td>
+  <td class="cell-h"><span class="pip pip-h"></span>—</td>
+  <td class="cell-s"><span class="pip pip-s"></span>SITL environment for AI benchmark runs, image data from flight logs</td>
+  <td class="cell-p"><span class="pip pip-p"></span>Jetson JetPack, YOLOv8 TensorRT, SPF framework, CNN-ViT obstacle avoidance, AI benchmark campaign (15 real trials)</td>
+</tr>
+<tr>
+  <td class="domain-col">Communication</td>
+  <td class="cell-h"><span class="pip pip-h"></span>Antenna physical placement</td>
+  <td class="cell-h"><span class="pip pip-h"></span>LoRa wiring to FC</td>
+  <td class="cell-s"><span class="pip pip-s"></span>MAVLink telemetry config, RC receiver binding</td>
+  <td class="cell-p"><span class="pip pip-p"></span>ESP-NOW mesh, TDMA scheduler, LoRa SiK config, latency measurement, multi-node testing</td>
+</tr>
+<tr>
+  <td class="domain-col">Fleet / GCS</td>
+  <td class="cell-h"><span class="pip pip-h"></span>Drone #2 build (fleet needs ≥2 physical units)</td>
+  <td class="cell-h"><span class="pip pip-h"></span>Charging station for dock rotation</td>
+  <td class="cell-s"><span class="pip pip-s"></span>Multi-drone SITL, navigation handoff between workers</td>
+  <td class="cell-p"><span class="pip pip-p"></span>Fleet rotation algorithm, CBBA-SOC scheduler, docking approach controller, GCS web interface</td>
+</tr>
+<tr>
+  <td class="domain-col">Testing / Validation</td>
+  <td class="cell-s"><span class="pip pip-s"></span>Physical test setup, safety observer during flights</td>
+  <td class="cell-p"><span class="pip pip-p"></span>All instrumentation, data acquisition, statistical analysis of propulsion + power datasets</td>
+  <td class="cell-p"><span class="pip pip-p"></span>Hover endurance tests, PID response tests, navigation trials</td>
+  <td class="cell-s"><span class="pip pip-s"></span>AI benchmark data logging, communication range tests, fleet rotation demo</td>
+</tr>
+</tbody>
+</table>
+
+<hr class="divider">
+
+<div class="section-head">Cross-functional touchpoints — where the team works together</div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
+
+<div class="overlap"><strong>Physical build sessions (P1 + P2)</strong><br>Assembly days: P1 holds structure, P2 routes and solders wiring. Neither can finish without the other present. Plan 2–3 dedicated build days per milestone.</div>
+
+<div class="overlap"><strong>First hover (P1 + P2 + P3)</strong><br>P1 delivers the frame. P2 delivers the powered electronics. P3 delivers the calibrated PX4. This is the first hard convergence point. Tethered indoor, safety observer mandatory.</div>
+
+<div class="overlap"><strong>FC ↔ Jetson integration (P3 + P4)</strong><br>MAVLink serial bridge, ROS2 topic design, SOC energy-aware trigger. P3 owns the FC side, P4 owns the Jetson side. Design the message interface jointly before coding it separately.</div>
+
+<div class="overlap"><strong>SLAM → EKF aiding (P3 + P4)</strong><br>P4 runs FAST-LIO2 and publishes odometry. P3 consumes it in EKF3 as external vision. Both must agree on the TF frame tree and covariance values before integration.</div>
+
+<div class="overlap"><strong>AI benchmark campaign (P3 + P4)</strong><br>P3 runs SITL environment. P4 runs AI models inside it. 50 simulated + 15 real trials per model. Data logging software built by P4, hardware piloting by P3.</div>
+
+<div class="overlap"><strong>Docking station integration (P1 + P2 + P4)</strong><br>P1 delivers physical docking station. P2 delivers charging electronics. P4 delivers approach controller and AprilTag vision. All three must be present for docking trials.</div>
+
+<div class="overlap"><strong>Fleet rotation demo (all four)</strong><br>2+ physical drones (P1 built them), power architecture in both (P2), PX4 tuned on both (P3), mesh + scheduler running (P4). The only task requiring all four simultaneously. Target: two drones, one dock, one full rotation cycle.</div>
+
+<div class="overlap"><strong>Characterization data → research docs (P2 + everyone)</strong><br>P2 generates the acoustic, vibration, endurance, and power datasets that directly feed Tables I–IV in the journal paper. Everyone validates against their own subsystem predictions.</div>
+
+</div>
+
+<hr class="divider">
+
+<div class="section-head">Day-one parallel start — no one waits for anyone</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+<div class="card" style="border-top:2px solid #1D9E75">
+  <div class="label" style="color:#0F6E56;margin-bottom:6px">P1 starts with</div>
+  <div class="item-text">Order BOM. Fusion360 beginner course. Tarot TL65B44 assembly guide. Design docking keel in CAD. No hardware dependency.</div>
+</div>
+<div class="card" style="border-top:2px solid #EF9F27">
+  <div class="label" style="color:#854F0B;margin-bottom:6px">P2 starts with</div>
+  <div class="item-text">Soldering practice kit. ESC bench flash (BLHeli32 on USB). Power harness planning on paper. Thrust stand rig from aluminium extrusions.</div>
+</div>
+<div class="card" style="border-top:2px solid #7F77DD">
+  <div class="label" style="color:#534AB7;margin-bottom:6px">P3 starts with</div>
+  <div class="item-text">Ubuntu 22.04 setup. PX4 source build. SITL + Gazebo. Fly simulated missions. Zero hardware required for weeks.</div>
+</div>
+<div class="card" style="border-top:2px solid #378ADD">
+  <div class="label" style="color:#185FA5;margin-bottom:6px">P4 starts with</div>
+  <div class="item-text">Flash Jetson JetPack 6. YOLOv8 TensorRT hello-world. ROS2 tutorials. ESP-NOW test on two ESP32 devboards. Fleet scheduler algorithm design on paper.</div>
+</div>
+</div>
+
+</div>

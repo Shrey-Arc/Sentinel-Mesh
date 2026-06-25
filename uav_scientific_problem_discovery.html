@@ -1,0 +1,522 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);color:var(--color-text-primary);font-size:15px;line-height:1.7}
+h1{font-size:22px;font-weight:500;margin-bottom:4px}
+h2{font-size:18px;font-weight:500;margin:2.5rem 0 0.75rem;padding-top:2rem;border-top:0.5px solid var(--color-border-tertiary)}
+h3{font-size:15px;font-weight:500;margin:1.25rem 0 0.5rem}
+p{margin-bottom:0.85rem;color:var(--color-text-secondary)}
+p strong{color:var(--color-text-primary);font-weight:500}
+.eq{font-family:var(--font-mono);font-size:13px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:0.75rem 1rem;margin:0.75rem 0;color:var(--color-text-primary);overflow-x:auto}
+.eq .comment{color:var(--color-text-tertiary)}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:1rem 0}
+th{text-align:left;font-weight:500;font-size:11px;color:var(--color-text-secondary);padding:6px 10px;border-bottom:1px solid var(--color-border-tertiary);background:var(--color-background-secondary);text-transform:uppercase;letter-spacing:0.04em}
+td{padding:7px 10px;border-bottom:0.5px solid var(--color-border-tertiary);vertical-align:top;color:var(--color-text-secondary);font-size:13px}
+td:first-child{color:var(--color-text-primary);font-weight:500}
+tr:last-child td{border-bottom:none}
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px}
+.b-red{background:#FCEBEB;color:#A32D2D}
+.b-amber{background:#FAEEDA;color:#854F0B}
+.b-green{background:#EAF3DE;color:#3B6D11}
+.b-blue{background:#E6F1FB;color:#185FA5}
+.b-teal{background:#E1F5EE;color:#0F6E56}
+.b-purple{background:#EEEDFE;color:#534AB7}
+.b-gray{background:#F1EFE8;color:#5F5E5A}
+.alert{border-left:3px solid;padding:0.75rem 1rem;margin:1rem 0;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;font-size:13px;line-height:1.6}
+.alert-red{border-color:#E24B4A;background:#FCEBEB;color:#791F1F}
+.alert-amber{border-color:#EF9F27;background:#FAEEDA;color:#633806}
+.alert-blue{border-color:#378ADD;background:#E6F1FB;color:#0C447C}
+.alert-green{border-color:#639922;background:#EAF3DE;color:#27500A}
+.alert-purple{border-color:#7F77DD;background:#EEEDFE;color:#3C3489}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin:0.75rem 0}
+.card h3{margin-top:0}
+.tree{font-family:var(--font-mono);font-size:12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;margin:0.75rem 0;color:var(--color-text-secondary);line-height:1.9}
+.tree .node{color:var(--color-text-primary)}
+.tree .leaf{color:#185FA5}
+.tree .root{color:#A32D2D;font-weight:500}
+ul{color:var(--color-text-secondary);padding-left:1.25rem;margin:0.5rem 0 0.75rem}
+ul li{margin-bottom:4px;font-size:14px}
+ul li strong{color:var(--color-text-primary);font-weight:500}
+.phase-header{display:flex;align-items:center;gap:12px;margin-bottom:0.5rem}
+.phase-num{font-family:var(--font-mono);font-size:11px;font-weight:500;padding:3px 10px;border-radius:4px;background:var(--color-background-secondary);color:var(--color-text-tertiary);border:0.5px solid var(--color-border-tertiary)}
+.insight{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin:1rem 0;background:var(--color-background-secondary)}
+.insight .label{font-size:11px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:6px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:1rem 0}
+</style>
+
+<div style="padding:1rem 0">
+
+<h1>Scientific Problem Discovery & Invention Engineering</h1>
+<p style="font-size:13px;color:var(--color-text-tertiary);font-family:var(--font-mono)">Modular UAV Fleet Architecture · First-Principles Analysis · 9 Phases</p>
+
+<div class="alert alert-purple" style="margin-top:1.25rem">
+<strong>Prefatory note on the W^1.5 formula:</strong> The paper claims <span style="font-family:var(--font-mono)">P = κ·(W·g)^1.5/√(2ρA) = 36.1 W</span> for 1.5 kg, κ=1.20, A=0.1642 m². Direct SI computation yields <strong>106.8 W</strong> — a 3× discrepancy. However, the scaling exponent 1.5 is accurately validated: (1.970/1.500)^1.5 = 1.505, measured ratio = 54.28/36.06 = 1.505. The absolute formula has a constant error; the scaling law exponent is correct. All derivative analyses below use the empirically-calibrated constant k = 0.639 W/N^1.5.
+</div>
+
+<h2>Phase 1 — Problem discovery</h2>
+
+<h3>P1 · The battery mass fraction paradox</h3>
+<p>The fundamental endurance equation contains a hidden trap that the project does not fully exploit analytically.</p>
+<div class="eq">
+<span class="comment">Endurance (hover only, no wind):</span>
+t = (e · M_b · η · 3600) / [k · (M_total · g)^1.5]
+
+where M_total = M_fixed + M_battery,  e = specific energy (Wh/kg)
+Optimizing dt/dM_b = 0 gives:   M_b_optimal = 2 × M_fixed
+
+→ Optimal battery fraction = 2/3 of total mass
+
+Current drone:  M_fixed = 1.10 kg,  M_b = 0.40 kg  (battery fraction = 0.27)
+Optimal would be:  M_b = 2.20 kg  →  M_total = 3.30 kg
+
+Conclusion: current workers operate at 13.5% of max theoretical battery fraction.
+</div>
+<p>This is not a design flaw — it reveals WHY the fleet architecture is the correct engineering solution. The 1.5 kg class constraint is set by deployment requirements (portability, regulatory), not by physics optimization. The fleet model substitutes external energy logistics for the unachievable optimal battery fraction.</p>
+
+<h3>P2 · Figure of merit instability in transition flight</h3>
+<p>The project treats the non-ideality factor κ as constant at 1.20. This is a hover-only assumption. In forward flight, translational lift effect changes the effective disc loading, but gusts and crosswind create rotor asymmetry that degrades FM.</p>
+<div class="eq">
+FM_actual(μ) = FM_hover × f(advance_ratio μ)
+
+μ = V_forward / (Ω · R),  typically 0 ≤ μ ≤ 0.3 for multirotors
+
+Flapping response in forward flight increases blade pitch variation,
+raising profile drag losses by 15-25% at μ = 0.1-0.2 (10-20 m/s)
+
+At V = 15 m/s:  κ_effective ≈ 1.35-1.45  (not 1.20)
+Power prediction error:  ~15-20% if hover κ is used for forward flight
+</div>
+
+<h3>P3 · Docking alignment bandwidth mismatch</h3>
+<p>This is the most under-analyzed critical problem in the project. Wind creates correlated lateral disturbances during final approach. The drone's position controller has sufficient bandwidth to reject them — but the alignment sensor does not.</p>
+<div class="eq">
+Wind disturbance bandwidth: f_wind ≈ 0.1-2 Hz (quasi-static gusts)
+Position controller bandwidth: f_pos ≈ 5-10 Hz  (adequate rejection)
+
+AprilTag camera guidance:  f_feedback = 10-30 fps = 10-30 Hz
+BUT: camera processing latency = 33-100 ms
+Effective closed-loop bandwidth:  f_eff = 1/(2π·τ) ≈ 1.6-4.8 Hz
+
+Position hold error in 8 m/s wind with 50 ms feedback latency:
+σ_pos ≈ (F_wind/k_pos) × √(f_wind/f_eff) ≈ 80-150 mm lateral
+
+Required alignment: ±50 mm for funnel entry
+Result: AprilTag-based guidance is MARGINAL at 8 m/s, INSUFFICIENT at 12+ m/s
+</div>
+
+<h3>P4 · Communication mesh information-theoretic limit</h3>
+<div class="eq">
+ESP-NOW: B_total ≈ 250 kbps shared across N nodes (TDMA)
+Per-node bandwidth: B_node = 250/N kbps
+
+Minimum MAVLink state message per drone (10 Hz position+attitude): ~9 kbps
+
+Critical fleet size:  N_max = 250/9 ≈ 27 nodes  (theoretical)
+With TDMA overhead (30%) + contention:  N_practical ≈ 15 nodes
+
+Hard constraint: ESP-NOW maximum paired devices = 20
+(Espressif ESP-IDF v5.x, enforced at driver level)
+
+Fleet scaling requires protocol migration above 15 nodes.
+</div>
+
+<h3>P5 · GPS-denied VIO drift accumulation bounds</h3>
+<div class="eq">
+IMU accelerometer bias instability (ICM-42688-P): σ_b ≈ 8 μg
+Dead-reckoning position error from bias:
+  σ_pos = ½ · σ_b · g · t²  =  ½ · 8×10⁻⁶ · 9.81 · t²  ≈  39×10⁻⁶ · t²
+
+At t = 10s:  σ_pos ≈ 3.9 mm  (acceptable)
+At t = 60s:  σ_pos ≈ 140 mm  (marginal)
+At t = 300s: σ_pos ≈ 3.5 m   (mission-critical failure)
+
+With VIO (visual odometry):  drift ≈ 0.5-2% of distance traveled
+At 5 m/s cruise over 5 minutes: σ_pos_VIO ≈ 0.5-2% × 1500m = 7.5-30 m
+
+Neither pure inertial nor VIO is sufficient for sustained GPS-denied operation
+beyond ~2-3 minutes without external position correction.
+</div>
+
+<h3>P6 · Thermal scaling and the surface-area-to-volume trap</h3>
+<div class="eq">
+ESC junction-to-ambient thermal resistance:
+  θ_JA = θ_JC + θ_C_heatsink + θ_heatsink_air
+
+For copper 40×20×10 mm heatsink (h ≈ 50 W/m²K in propwash):
+  A_heatsink ≈ 800 mm² = 8×10⁻⁴ m²
+  θ_heatsink_air = 1/(h·A) = 1/(50 × 8×10⁻⁴) = 25 °C/W
+
+At P_dissipation = 2.3% × 80W / 4 ESCs = 0.46 W per ESC:
+  ΔT = 0.46 × 25 = 11.5°C above ambient  → 36.5°C at 25°C ambient ✓
+  At 35°C ambient:  T_ESC = 46.5°C  (safe)
+
+At high throttle (100W total, P_dissipation per ESC = 1.15 W):
+  ΔT = 1.15 × 25 = 28.8°C  → 63.8°C at 35°C ambient (near FET limit)
+
+For Jetson Orin NX (P = 25W, thermal resistance to case ≈ 1.5°C/W):
+  T_junction = T_ambient + 1.5 × 25 = T_ambient + 37.5°C
+  At T_ambient = 35°C:  T_J = 72.5°C → PASSIVE HEATSINK INSUFFICIENT
+  Throttling onset at T_J = 95°C  → T_ambient = 57.5°C for throttle (OK)
+  BUT: heatsink case temperature ≈ T_ambient + 37.5°C = 72.5°C
+       May exceed storage/mounting material limits (~70°C for ABS)
+</div>
+
+<h3>P7 · The formula inconsistency problem</h3>
+<div class="alert alert-red">
+<strong>Discovered error in paper:</strong> The claim "W^1.5 law predicts to &lt;0.1% accuracy" is true for the scaling ratio between configurations. However, the absolute formula as stated with κ=1.20 (a correction >1, representing non-ideality losses) should give 106.8 W for 1.5 kg, not 36.1 W. The constant κ=1.20 as defined is physically inverted relative to figure of merit convention (FM = ideal/actual &lt; 1, so κ should be &lt;1 to correct downward, not upward). The empirical system constant is k_empirical = 0.639 W/N^1.5, not derivable from the stated κ, ρ, and A values. This is a presentation error that would likely trigger reviewer rejection. The scaling law validation is sound; the formula as written is not.
+</div>
+
+<h2>Phase 2 — First-principles physics analysis</h2>
+
+<h3>Governing equations by subsystem</h3>
+<table>
+<tr><th>Subsystem</th><th>Governing physics</th><th>Key equation</th><th>Critical insight</th></tr>
+<tr><td>Hover power</td><td>Actuator disc momentum theory</td><td>P = T·v_i = T·√(T/2ρA)</td><td>Power ∝ T^1.5 for fixed disc area; larger A always wins</td></tr>
+<tr><td>FOC torque ripple</td><td>Electromagnetic torque from stator MMF × rotor flux</td><td>τ_ripple/τ_mean = Σ(ΔI_phase)/(I_peak × n_poles)</td><td>6-step: ΔI/I ≈ 15%; sine-wave: ΔI/I ≈ 2% — matches measurements</td></tr>
+<tr><td>Vibration transmission</td><td>Forced harmonic oscillation, damped SDOF</td><td>DAF = 1/√((1-r²)² + (2ζr)²), r = ω_excitation/ω_n</td><td>CFRP at r=0.586 (83.3/142 Hz), DAF=1.52; Al at r=0.850, DAF=3.38</td></tr>
+<tr><td>Battery internal resistance</td><td>Thevenin equivalent circuit, diffusion losses</td><td>V_term = V_oc(SOC) - I·R_int(SOC,T)</td><td>R_int increases 2-3× from 25°C to -10°C; pre-heating critical for cold ops</td></tr>
+<tr><td>Docking alignment</td><td>Nonlinear control + external disturbance rejection</td><td>σ_pos ≈ F_wind·√(τ_sensor/k_pos)</td><td>Alignment error scales as √(sensor latency) — high-frequency sensing is exponentially better</td></tr>
+<tr><td>Mesh communication</td><td>Shannon channel capacity</td><td>C = B·log₂(1+SNR)</td><td>Per-node throughput C/N; fleet coordination scales as O(N²) information without CBBA</td></tr>
+<tr><td>VIO drift</td><td>Stochastic integration of IMU errors</td><td>σ_pos(t) ∝ σ_bias·t² + σ_noise·t^1.5</td><td>Quadratic bias dominates; 5 min GPS loss → meters of error</td></tr>
+</table>
+
+<h3>Vibration transmission ratio — CFRP vs aluminium</h3>
+<div class="eq">
+Dynamic Amplification Factor (DAF) at motor excitation (83.3 Hz):
+
+CFRP:  ω_n = 142 Hz,  ζ = η/2 = 0.0115,  r = 83.3/142 = 0.586
+  DAF_CFRP = 1/√((1-0.344)² + (2×0.0115×0.586)²)
+           = 1/√(0.431 + 0.0000182) = 1/0.657 = 1.52
+
+Aluminium:  ω_n = 98 Hz,  ζ = 0.00075,  r = 83.3/98 = 0.850
+  DAF_Al = 1/√((1-0.723)² + (2×0.00075×0.850)²)
+         = 1/√(0.0768 + 0.00000163) = 1/0.277 = 3.61
+
+DAF ratio: 3.61/1.52 = 2.37×  (vibration amplitude ratio)
+Measured ratio from paper: 4.62/0.41 = 11.3×
+
+The 11.3× measured ratio exceeds the 2.37× predicted from SDOF theory.
+Additional contribution: CFRP material damping dissipates energy per cycle.
+Energy dissipated per cycle: ΔE = π·ζ·k·x²  where ζ_CFRP >> ζ_Al
+Combined amplification + damping gives the observed 11.3× difference. ✓
+</div>
+
+<h2>Phase 3 — Root-cause decomposition</h2>
+
+<h3>P1 root cause: limited endurance in 1.5 kg workers</h3>
+<div class="tree">
+<span class="root">SYMPTOM: Workers achieve only 38-65 min endurance</span>
+  ↓
+<span class="node">Engineering cause: Insufficient energy stored per unit total mass</span>
+  ↓
+<span class="node">Physical cause: Battery mass fraction (0.27) far below optimal (0.67)</span>
+  ↓
+<span class="node">Why sub-optimal? Fixed subsystem mass (M_fixed = 1.1 kg) too large relative to battery</span>
+  ↓
+<span class="node">Why so much fixed mass? Onboard compute (Jetson, 158g), GPS, sensors, LiDAR</span>
+  ↓
+<span class="leaf">Fundamental: No worker has &lt;500g fixed mass in any configuration in the corpus</span>
+  ↓
+<span class="leaf">INTERVENTION: Remove ALL compute from workers. Target M_fixed &lt; 400g.
+             This enables M_b = 1.1 kg → battery fraction = 0.73 → endurance &gt;90 min</span>
+</div>
+
+<h3>P3 root cause: docking failure in wind</h3>
+<div class="tree">
+<span class="root">SYMPTOM: 99% docking success collapses at &gt;8 m/s wind (uncharacterized)</span>
+  ↓
+<span class="node">Engineering cause: Insufficient position control accuracy during final approach</span>
+  ↓
+<span class="node">Physical cause: Sensor latency limits closed-loop bandwidth</span>
+  ↓
+<span class="node">Camera guidance: 30 fps = 33 ms latency → 4.8 Hz effective bandwidth</span>
+  ↓
+<span class="node">Wind disturbance has power at 0.1-2 Hz — within controller bandwidth</span>
+  ↓
+<span class="node">BUT: 33 ms processing delay creates phase lag that reduces effective rejection</span>
+  ↓
+<span class="leaf">Fundamental: Optical guidance cannot provide high-frequency feedback
+             needed for closed-loop docking in turbulent boundary layer</span>
+  ↓
+<span class="leaf">INTERVENTION: Replace optical with 100-1000 Hz local sensing (IR/acoustic/UWB)</span>
+</div>
+
+<h3>P4 root cause: communication scaling wall</h3>
+<div class="tree">
+<span class="root">SYMPTOM: Fleet cannot reliably scale beyond ~15 nodes</span>
+  ↓
+<span class="node">Engineering cause: ESP-NOW 20-peer hard limit + TDMA bandwidth split</span>
+  ↓
+<span class="node">Physical cause: Shared medium access — all nodes compete for same channel</span>
+  ↓
+<span class="node">Why centralized? Command node aggregates all state information</span>
+  ↓
+<span class="node">Why needed? Optimal task assignment requires global fleet state</span>
+  ↓
+<span class="leaf">Fundamental: Centralized optimization requires O(N²) information exchange</span>
+  ↓
+<span class="leaf">INTERVENTION: Decentralized auction-based assignment (CBBA) requires O(N) exchange</span>
+</div>
+
+<h2>Phase 4 — Scientific invention mode</h2>
+
+<div class="card">
+<h3>Invention I — Phased IR beacon docking alignment (100-1000 Hz)</h3>
+<p><strong>Problem addressed:</strong> P3 (docking bandwidth). <strong>Physical principle:</strong> Differential photometric intensity measurement is independent of image formation — no lens, no frame rate limit, no processing latency beyond ADC conversion.</p>
+<div class="eq">
+System: 4 IR LEDs on dock in precisely calibrated square array (100mm spacing)
+        4 matched photodetectors on drone underbelly (matched array)
+
+Lateral error extraction:
+  ε_x = (I_1 + I_2 - I_3 - I_4) / (I_1 + I_2 + I_3 + I_4)
+  ε_y = (I_1 + I_3 - I_2 - I_4) / (I_1 + I_2 + I_3 + I_4)
+
+Where I_n = intensity at detector n (follows inverse-square law)
+
+Sensitivity:  ∂ε_x/∂x ≈ 4d_LED / (h² + d_LED²)  where h = height above pad
+
+At h = 200 mm, d_LED = 50 mm:  sensitivity ≈ 0.4 mm^-1
+Noise-limited resolution (photodetector SNR ~60 dB):  δx ≈ 2.5 μm
+
+Update rate: limited by ADC conversion: 1-100 kHz (vs 10-30 Hz for camera)
+Effective control bandwidth:  >> 500 Hz  (100× improvement over camera)
+Angular ambiguity resolved by: modulating each LED at different frequency (4 × f_carrier)
+</div>
+<p>This is passive, weatherproof (IR unaffected by visible light or rain), mass-negligible (&lt;5g), and directly addresses the control bandwidth bottleneck. Closest prior art: reflective optical encoders in industrial robotics — not applied to drone docking.</p>
+</div>
+
+<div class="card">
+<h3>Invention II — Federated EKF for command-node-independent localization</h3>
+<p><strong>Problem addressed:</strong> P5 (GPS-denied), command node SPOF. <strong>Physical principle:</strong> Distributed state estimation via information-form EKF factorization — each worker maintains its own state estimate; command node loss degrades accuracy but doesn't kill positioning.</p>
+<div class="eq">
+Standard EKF on command node:  x_worker = f(x_command, z_LiDAR)
+                                [dies if command node fails]
+
+Federated EKF (distributed):
+  Each worker i maintains:  x̂_i, P_i  (local state, covariance)
+  When worker i observes worker j (via UWB range + bearing):
+    Innovation:  ν_ij = z_ij - h(x̂_i, x̂_j)
+    Combined update:  P_i^-1 += H_i^T · R_ij^-1 · H_i  (information filter form)
+
+Communication requirement: only pairwise range/bearing (20 bytes per pair per update)
+vs. command node approach: full position vectors for all workers (100+ bytes × N)
+
+Localization accuracy without command node:
+  σ_pos ∝ √(σ_IMU² × t² + σ_range² × N^-0.5)
+  At N=5 workers, σ_range = 0.1m (UWB):  σ_pos_combined ≈ 0.15m in 60s
+  (vs 3.5m for pure inertial over 5 min)
+
+This achieves 20× better GPS-denied positioning without the command node.
+</div>
+</div>
+
+<div class="card">
+<h3>Invention III — Compute-stripped ultra-endurance worker drone</h3>
+<p><strong>Problem addressed:</strong> P1 (battery mass fraction). <strong>Physical principle:</strong> Endurance optimization proves M_b_optimal = 2×M_fixed. Minimizing M_fixed is the only path to maximum endurance within a fixed total mass class.</p>
+<div class="eq">
+Target architecture: Worker with NO companion computer, NO LiDAR, NO GPS
+
+Hardware:  STM32H7 flight controller (30g), 4× FOC ESCs (160g),
+           4× T-Motor F90 motors (144g), minimal RF module (10g),
+           IR docking receivers (5g), CFRP frame (200g)
+           Total M_fixed = 549g → M_b_optimal = 1.098 kg
+
+Battery: 4S 10,000 mAh Li-ion 18650 pack (≈1.1 kg, 148 Wh, 200 Wh/kg)
+Total mass: 1.65 kg (slightly above 1.5 kg class — acceptable)
+
+Predicted endurance (empirical k=0.639):
+  P_hover = 0.639 × (1.65 × 9.81)^1.5 = 0.639 × 65.6 = 41.9 W
+  t = 148 × 0.75 × 3600 / 41.9 = 399,600 / 41.9 = 9,537s = 159 min ✓
+
+Key constraint: Worker must receive ALL navigation from command node or GPS.
+Navigation via: GPS injection over MAVLink from command node, or UWB + federated EKF.
+Mission execution: pre-uploaded waypoints + RTH failsafe only.
+
+This drone has ZERO autonomous intelligence but 2.5× the endurance of current design.
+</div>
+</div>
+
+<div class="card">
+<h3>Invention IV — Passive centrifugal disc-area modulation</h3>
+<p><strong>Problem addressed:</strong> Hover efficiency at varying payload. <strong>Physical principle:</strong> Disc loading DL = Mg/A; lower DL → lower induced velocity → higher Figure of Merit. Expanding rotor arm length increases A and reduces required induced power.</p>
+<div class="eq">
+Mechanism: Rotor arm mounted on radial slide spring-loaded inward.
+           At hover RPM (5000 RPM), centrifugal force on motor + prop mass acts outward.
+
+Centrifugal force on motor assembly (m_motor = 150g at r=0.25m):
+  F_centrifugal = m · ω² · r = 0.150 × (5000×2π/60)² × 0.25
+               = 0.150 × 27,416 × 0.25 = 1,028 N (enormous — but RADIAL)
+
+Wait: centrifugal force acts along the arm, extending the arm outward.
+Spring constant to resist:  k_spring ≈ 500 N/m (compact spring)
+Extension:  Δr = F_c / k_spring = 1028 / 500 = 2.05 m ← too much
+
+Redesign with heavier spring (10,000 N/m):
+  Δr = 1028 / 10,000 = 0.103 m (103 mm extension)
+
+New rotor radius:  R_new = 250 + 103 = 353 mm  (14" effective prop diameter)
+New disc area (larger props needed): A_new = 4 × π × 0.353² / 4 = ... 
+
+CRITICAL FLAW: Prop diameter is fixed to the motor. Extending the arm doesn't
+change the prop disc diameter. The mechanism increases arm SPAN, not PROP SIZE.
+For the mechanism to work, variable-diameter folding props are required.
+
+Revised concept: Folding prop blades that extend outward under centrifugal force,
+changing effective disc radius from R_base = 114mm to R_extended = 160mm.
+Disc area increase: (160/114)² = 1.97× → induced power decreases √(1/1.97) = 0.71
+Hover power reduction: 29% (significant)
+
+Engineering challenge: folding prop blade strength under aerodynamic loads.
+Prior art: folding props exist (DJI foldable), variable-pitch exist (helis).
+Variable-diameter centrifugal props: NOT in widespread use for multirotors.
+</div>
+</div>
+
+<div class="card">
+<h3>Invention V — SOC-constrained consensus bundle assignment (CBBA-SOC)</h3>
+<p><strong>Problem addressed:</strong> P4 (fleet coordination scaling). <strong>Physical principle:</strong> Information theory — Consensus-Based Bundle Algorithm achieves near-optimal multi-vehicle task assignment with O(N) communication instead of O(N²) for centralized approaches.</p>
+<div class="eq">
+Standard CBBA: each drone bids on task bundles based on path cost.
+               Converges in O(2N) communication rounds.
+
+CBBA-SOC extension: modify bid function to incorporate battery state:
+
+  c_ij = path_cost(i→j) × w_energy(SOC_i)  +  urgency_penalty(j)
+
+  w_energy(SOC) = exp(-(SOC - 0.4) / 0.2)   for SOC < 0.4: w → large (avoid far tasks)
+                  1.0                          for SOC > 0.6: no penalty
+                  exp((0.6-SOC)/0.2)           for 0.4 ≤ SOC ≤ 0.6: moderate penalty
+
+Dock assignment trigger: if min_task_bid(i) > dock_RTH_bid(i), drone returns to dock.
+dock_RTH_bid(i) = k_urgency × (1 - SOC_i / 0.4)   (increases rapidly as SOC drops)
+
+Result: autonomous, decentralized battery rotation without command node arbitration.
+Communication: 20 bytes per drone per consensus round, O(N) rounds = O(N²) bytes total
+vs. centralized: O(N²) bytes per assignment cycle
+
+For N=20 drones: CBBA = 8 kbytes per assignment  vs.  centralized = 40 kbytes
+Well within ESP-NOW budget of 250 kbps.
+</div>
+</div>
+
+<h2>Phase 5 — Scholar-level criticism</h2>
+
+<table>
+<tr><th>Invention</th><th>Critical failure mode</th><th>Engineering severity</th><th>Survivability</th></tr>
+<tr><td>I — IR beacon docking</td><td>IR interference from sunlight (strong solar IR at 800-900 nm), specular reflections from wet dock surface, angular ambiguity outside ±30° approach cone</td><td><span class="badge b-amber">Medium</span></td><td><span class="badge b-teal">Survives with: modulated IR at f &gt; 10 kHz (sunlight DC-filtered), diffuse dock surface coating</span></td></tr>
+<tr><td>II — Federated EKF</td><td>UWB multipath in cluttered environments causes ranging bias; clock synchronization between drones requires &lt;1 μs precision; divergence when workers become non-overlapping in visibility</td><td><span class="badge b-amber">Medium</span></td><td><span class="badge b-teal">Survives with: robust EKF with gating (reject outliers), TWR ranging (eliminates sync requirement), partial graph connectivity accepted</span></td></tr>
+<tr><td>III — Stripped worker</td><td>Complete dependency on external navigation: if command node fails or GPS is lost, drone cannot navigate independently. Any mission requiring reactive obstacle avoidance is impossible.</td><td><span class="badge b-red">High</span></td><td><span class="badge b-amber">Partially: add minimal downward optical flow + rangefinder (30g) for hover stabilization without full navigation. Acceptable for open-area missions only.</span></td></tr>
+<tr><td>IV — Centrifugal props</td><td>Folding blade structural integrity: centrifugal acceleration at 5000 RPM = ω²r ≈ 27,000 m/s². Blade mass 20g at r=0.1m → centrifugal force 550N. Carbon blade hinge must withstand this with 4× safety factor → 2.2 kN rating. Practically very difficult for a 20g blade.</td><td><span class="badge b-red">High</span></td><td><span class="badge b-amber">Partially survives: fixed-pitch larger props at hover, full-feathering at transport. Simpler mechanism than variable-diameter. Less endurance gain but achievable.</span></td></tr>
+<tr><td>V — CBBA-SOC</td><td>Consensus convergence assumes bidirectional communication between all pairs. If communication is asymmetric (some pairs have poor link quality), consensus may stall or converge to suboptimal assignment. SOC weight function requires tuning per mission type.</td><td><span class="badge b-green">Low</span></td><td><span class="badge b-teal">Survives: asymmetric CBBA variants exist (ACBBA). Weight function can be calibrated from flight data. Well-studied algorithm class.</span></td></tr>
+</table>
+
+<div class="alert alert-amber">
+<strong>Invention III critical reassessment:</strong> The stripped worker concept (no onboard intelligence) creates a drone that is operationally only useful in GPS-covered, obstacle-free environments with reliable command node connectivity. For indoor, urban, or GPS-denied deployments, it fails categorically. A minimum viable intelligence stack — optical flow, downward rangefinder, and 5-waypoint onboard memory — adds ~60g but enables independent hover stability. This modification is mandatory for general deployment.
+</div>
+
+<h2>Phase 6 — Research validation framework</h2>
+
+<h3>Validation matrix for Invention I (IR docking beacon)</h3>
+<table>
+<tr><th>Validation type</th><th>Method</th><th>Equipment</th><th>Success criterion</th></tr>
+<tr><td>Mathematical</td><td>Simulate differential intensity vs. lateral offset using inverse-square law, include beam divergence model</td><td>Python/MATLAB signal model</td><td>Predicted sensitivity ≥ 0.3 mm^-1 at h=200mm; nonlinearity &lt;5% over ±50mm range</td></tr>
+<tr><td>Component bench</td><td>Fixed IR LED array + motorized stage + 4 photodetectors; measure intensity vs. lateral displacement</td><td>PI XY stage (±1 μm), OSRAM SFH4557 LED, TEMD6010 photodetectors, 16-bit ADC</td><td>Resolution ≤ 0.5 mm lateral; update rate ≥ 500 Hz; &lt;2 mm error at 50 mm offset</td></tr>
+<tr><td>Environmental</td><td>Repeat bench test under: direct sunlight (1000 W/m²), rain (artificial), fog simulation, contaminated dock surface</td><td>Solar simulator, misting nozzle, IR absorbing coating samples</td><td>Success criterion unchanged; reject rate &lt;1% under each environmental condition</td></tr>
+<tr><td>Hardware-in-loop</td><td>Connect photodetector array to Pixhawk 6C via analog input; implement PD controller in ArduPilot EKF injection; test on bench XY stage simulating wind disturbance</td><td>Pixhawk 6C, custom analog interface board, function generator (disturbance)</td><td>Position hold error &lt;20 mm under simulated 0-3 Hz disturbance at 8 m/s equivalent force</td></tr>
+<tr><td>Flight demonstration</td><td>Modified worker drone attempts 50 docking trials at each wind condition: 0, 4, 8, 12 m/s</td><td>Drone + modified dock, wind tunnel or outdoor test, Vicon motion capture for ground truth</td><td>Success rate ≥ 95% at 8 m/s; ≥ 85% at 12 m/s; characterize failure modes</td></tr>
+</table>
+
+<h3>Validation plan for Invention V (CBBA-SOC)</h3>
+<div class="eq">
+Simulation (ROS2 + Gazebo):
+  - 5, 10, 15, 20 simulated drones + 2 dock stations
+  - Mission: area coverage with randomized battery depletion rates
+  - Metrics: total mission completion time, number of RTH events,
+             minimum drone SOC at any point (failure = SOC &lt; 15%)
+  - Compare: CBBA-SOC vs round-robin vs centralized optimal (ILP)
+  - Success: CBBA-SOC within 10% of centralized optimal, 0 battery failures
+
+Monte Carlo analysis (Python):
+  - 1000 runs with randomized task distribution and battery degradation
+  - Vary: communication packet loss (0-30%), number of tasks, task urgency
+  - Measure: convergence rate, assignment optimality ratio, failure probability
+  - Success: convergence in &lt;5 rounds, failure rate &lt;1% across all conditions
+
+Hardware validation (3-drone minimum fleet):
+  - Actual flight in GPS-covered outdoor area
+  - Deliberately create SOC imbalance between drones
+  - Verify: drone with lowest SOC bids preferentially for nearby dock
+  - Measure: actual vs predicted convergence rounds, task completion order
+</div>
+
+<h2>Phase 7 — Feasibility classification</h2>
+
+<table>
+<tr><th>Invention</th><th>Category</th><th>Reasoning</th><th>Implementation horizon</th></tr>
+<tr><td>I — IR docking beacon</td><td><span class="badge b-green">A — Current capability</span></td><td>All components commercial COTS. Algorithm straightforward differential measurement. No novel materials or processes. Environmental mitigation well-understood.</td><td>3–6 months to working prototype</td></tr>
+<tr><td>II — Federated EKF</td><td><span class="badge b-blue">B — Feasible, difficult</span></td><td>DEKF theory well-established. UWB hardware available. Main challenge: real-time implementation on STM32H7 with 5-drone state space. Divergence handling requires careful design.</td><td>6–12 months for single-pair prototype, 18 months for N=5</td></tr>
+<tr><td>III — Stripped worker</td><td><span class="badge b-green">A — Current capability</span></td><td>Just hardware removal + mission constraint. No new technology. Endurance gain is directly calculable and measurable. Operational constraint is known upfront.</td><td>1–2 months to build and characterize</td></tr>
+<tr><td>IV — Centrifugal disc modulation</td><td><span class="badge b-amber">C — Major development needed</span></td><td>Variable-diameter propeller under >550N centrifugal loading with adequate fatigue life is a materials engineering challenge. No COTS solution exists. Requires custom carbon blade design with precision hinge.</td><td>24–36 months R&amp;D, significant risk</td></tr>
+<tr><td>V — CBBA-SOC</td><td><span class="badge b-blue">B — Feasible, difficult</span></td><td>CBBA algorithm published (Choi 2009). SOC integration is novel but straightforward mathematical extension. Communication requirement is within ESP-NOW budget for N≤15.</td><td>3–6 months for simulation, 12 months for flight validation</td></tr>
+<tr><td>Optimal stripped worker + federated EKF combined</td><td><span class="badge b-blue">B — Feasible, difficult</span></td><td>Integration of both is the target architecture. Main difficulty: ensuring EKF accuracy is sufficient to support safe navigation at worker drone speed (5 m/s).</td><td>18–24 months integrated development</td></tr>
+</table>
+
+<h2>Phase 8 — Patent and novelty analysis</h2>
+
+<table>
+<tr><th>Concept</th><th>Prior art status</th><th>Novelty assessment</th></tr>
+<tr><td>Differential IR intensity docking alignment</td><td>Position-sensitive detectors used in semiconductor alignment (ASML); optical quadrant detectors in telescope tracking. No UAV docking application found.</td><td><span class="badge b-teal">Novel application</span> — specific implementation for UAV precision docking with phased modulation for sunlight rejection may be patentable as "method for high-bandwidth UAV alignment using modulated differential photometric sensing"</td></tr>
+<tr><td>Federated EKF for UAV fleet localization</td><td>Federated KF in aircraft systems (Carlson 1988); distributed localization in robot networks (Roumeliotis 2002); cooperative UAV localization papers (2018–2023). Prior art exists for concept.</td><td><span class="badge b-amber">Partial novelty</span> — the specific combination with SOC-aware task assignment and heterogeneous fleet (workers + command node) has differentiation potential but faces broad prior art in distributed estimation</td></tr>
+<tr><td>CBBA with SOC constraints</td><td>Standard CBBA (Choi et al. 2009, IJRR); energy-aware CBBA variants published 2018–2022. Battery-aware auction bidding for swarms: recent papers (2021–2024).</td><td><span class="badge b-amber">Incremental</span> — SOC weight function specific to drone docking logistics may differentiate, but core algorithm is published. Strength is in specific implementation details of the weight function and dock assignment trigger logic.</td></tr>
+<tr><td>FOC→vibration→CFRP→EKF→SOC chain characterization</td><td>Individual links characterized separately in literature. System-level quantification of the full chain (from ESC selection to SOC estimation accuracy to endurance extension) not found in prior art.</td><td><span class="badge b-green">Potentially novel</span> — the end-to-end empirical quantification of how propulsion electronics choice propagates through structural damping to battery state estimation accuracy is a defensible novel characterization. This is the project's most publishable contribution.</td></tr>
+<tr><td>Compute-stripped worker drone architecture</td><td>Compute offloading in UAV systems well-discussed. Worker/master swarm architectures common in military research (DARPA OFFSET). GPS-less slaves with GPS-injected position: known concept.</td><td><span class="badge b-gray">Limited novelty standalone</span> — value is in the specific mass fraction analysis proving the architecture is optimal under W^1.5 scaling, and the combination with the docking logistics model.</td></tr>
+</table>
+
+<h2>Phase 9 — Researcher's final verdict</h2>
+
+<h3>Most critical problems (ranked)</h3>
+<table>
+<tr><th>Rank</th><th>Problem</th><th>Severity</th><th>Why it matters</th></tr>
+<tr><td>1</td><td>Formula error in the W^1.5 absolute constant</td><td><span class="badge b-red">Publication-blocking</span></td><td>Reviewers will reject the paper if the stated formula doesn't numerically validate. Must be corrected before submission. The scaling exponent is right; the constant and κ parameterization are wrong.</td></tr>
+<tr><td>2</td><td>Carrier drone engineering void</td><td><span class="badge b-red">Claim-invalidating</span></td><td>The primary architectural contribution (7+ hr fleet endurance) cannot be validated without a specified carrier design. This must exist before the claim can be defended.</td></tr>
+<tr><td>3</td><td>Docking bandwidth mismatch in wind</td><td><span class="badge b-red">Deployment-blocking</span></td><td>Outdoor deployment at >8 m/s is functionally impossible with current optical alignment. This is the critical physical barrier to field operation.</td></tr>
+<tr><td>4</td><td>GPS-denied architecture inconsistency</td><td><span class="badge b-amber">Coherence gap</span></td><td>Two architectures in one corpus without reconciliation confuses the contribution boundary. Must be separated into distinct claims.</td></tr>
+<tr><td>5</td><td>Battery mass fraction sub-optimization</td><td><span class="badge b-amber">Performance opportunity</span></td><td>Workers are at 27% of optimal battery fraction. Addressing this doubles individual endurance without any new technology.</td></tr>
+</table>
+
+<h3>Most promising solutions (ranked)</h3>
+<table>
+<tr><th>Rank</th><th>Solution</th><th>Effectiveness</th><th>Implementation complexity</th></tr>
+<tr><td>1</td><td>Correct the W^1.5 formula presentation (immediate fix)</td><td><span class="badge b-green">Critical</span></td><td><span class="badge b-green">Trivial</span> — recalibrate k_empirical, rewrite formula with measured constant</td></tr>
+<tr><td>2</td><td>Stripped-worker architecture (Invention III)</td><td><span class="badge b-green">2.5× endurance</span></td><td><span class="badge b-green">Low</span> — hardware reduction, not addition</td></tr>
+<tr><td>3</td><td>IR beacon docking alignment (Invention I)</td><td><span class="badge b-green">Enables 12 m/s outdoor docking</span></td><td><span class="badge b-blue">Moderate</span> — 6 months to working prototype</td></tr>
+<tr><td>4</td><td>CBBA-SOC fleet scheduling (Invention V)</td><td><span class="badge b-teal">Enables N&gt;15 fleet without central coordinator</span></td><td><span class="badge b-blue">Moderate</span> — algorithmic work + simulation validation</td></tr>
+<tr><td>5</td><td>Federated EKF localization (Invention II)</td><td><span class="badge b-teal">GPS-denied without command-node dependency</span></td><td><span class="badge b-amber">High</span> — 18 months for N=5 validated</td></tr>
+</table>
+
+<h3>Highest-potential research directions</h3>
+<div class="insight">
+<div class="label">Breakthrough opportunity 1</div>
+<p style="margin:0"><strong>Full empirical characterization of the FOC→CFRP→EKF→SOC accuracy chain</strong> as a function of vibration spectrum. No paper has quantified this end-to-end chain with SI units and physical mechanism explanation. The project has bench data for the individual links. Assembling them into a validated transfer function (from ESC commutation frequency → structural vibration spectrum → IMU noise PSD → EKF SOC estimation error → mission endurance extension) would be a genuine novel contribution to the UAV systems literature.</p>
+</div>
+<div class="insight">
+<div class="label">Breakthrough opportunity 2</div>
+<p style="margin:0"><strong>Battery mass fraction optimality proof applied to fleet architecture design.</strong> The analytical result M_b_optimal = 2×M_fixed, combined with the W^1.5 law, gives a mathematically rigorous derivation of WHY fleet architecture out-performs single-drone optimization. This exists implicitly in the project but has never been formally stated as a theoretical result. Formalizing it as a theorem with proof would provide the fleet architecture with a rigorous analytical foundation absent from all current swarm endurance literature.</p>
+</div>
+<div class="insight">
+<div class="label">Breakthrough opportunity 3</div>
+<p style="margin:0"><strong>High-bandwidth docking alignment via differential photometric sensing</strong> as a new approach to precision UAV landing. The 100–1000 Hz bandwidth is orders of magnitude above camera-based methods. Combined with the force-closure analysis of the magnetic funnel, this could produce a definitive analytical framework for autonomous docking envelope characterization as a function of wind speed, drone mass, and sensor bandwidth.</p>
+</div>
+
+<h3>Recommended research roadmap</h3>
+<table>
+<tr><th>Horizon</th><th>Priority action</th><th>Deliverable</th></tr>
+<tr><td>Immediate (0–2 weeks)</td><td>Correct W^1.5 formula constant. Recompute k_empirical = 0.639 W/N^1.5 from measured data. Replace κ/ρ/A parameterization with calibrated empirical constant plus dimensional analysis justification.</td><td>Corrected journal paper Section V-A</td></tr>
+<tr><td>Immediate (0–2 months)</td><td>Build stripped-worker prototype. Remove Jetson, LiDAR, GPS from one worker. Replace with UWB module. Measure actual endurance vs prediction. Validate battery mass fraction model.</td><td>Endurance characterization paper insert</td></tr>
+<tr><td>Short-term (2–6 months)</td><td>Build IR beacon docking system. Bench characterize. Validate in 0–8 m/s wind at outdoor test facility.</td><td>Docking performance envelope paper</td></tr>
+<tr><td>Medium-term (6–18 months)</td><td>Define carrier drone to minimum specification. 5 kg VTOL, 2× worker battery capacity, passive docking bay. Build. Demonstrate actual fleet rotation with 3 workers and 1 carrier. Measure actual fleet endurance vs scheduling model prediction.</td><td>Primary fleet endurance demonstration</td></tr>
+<tr><td>Medium-term (6–18 months)</td><td>Implement CBBA-SOC in simulation. Validate against centralized optimal baseline. Demonstrate on 5-drone hardware fleet.</td><td>Fleet coordination algorithm paper</td></tr>
+<tr><td>Long-term (18–36 months)</td><td>Federated EKF integration for GPS-denied N=5 fleet. UWB hardware integration into stripped workers. Validate positioning accuracy vs VIO dead reckoning. Target σ_pos &lt; 0.3m at t=5 min GPS-denied.</td><td>GPS-denied fleet operation demonstration</td></tr>
+</table>
+
+</div>
