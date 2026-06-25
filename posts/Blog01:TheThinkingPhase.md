@@ -2,7 +2,7 @@
 title: "Blog 01: The Thinking Phase"
 description: "An Idea, a Spark, A JOURNEY."
 tags: ['IDEAS', 'tech', 'uav', 'drones']
-type: "blog" # Set to "blog" or "log"
+type: "blog"
 ---
 
 # Sentinel-Mesh — Blog 01: The Thinking Phase
