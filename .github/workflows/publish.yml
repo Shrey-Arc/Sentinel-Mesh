@@ -1,0 +1,119 @@
+name: Cross-Platform Publisher
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'posts/**.md'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # Fetches the current and previous commit to detect changes
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install axios gray-matter
+
+      - name: Run Publisher Script
+        env:
+          HASHNODE_TOKEN: ${{ secrets.HASHNODE_TOKEN }}
+          HASHNODE_PUBLICATION_ID: ${{ secrets.HASHNODE_PUBLICATION_ID }}
+          DEVTO_TOKEN: ${{ secrets.DEVTO_TOKEN }}
+          MEDIUM_TOKEN: ${{ secrets.MEDIUM_TOKEN }}
+        run: |
+          node -e "
+          const fs = require('fs');
+          const execSync = require('child_process').execSync;
+          const axios = require('axios');
+          const matter = require('gray-matter');
+
+          // Get files modified or added in the last commit
+          const changedFiles = execSync('git diff --name-only HEAD~1 HEAD')
+            .toString()
+            .split('\n')
+            .filter(f => f.startsWith('posts/') && f.endsWith('.md'));
+
+          async function publish() {
+            for (const file of changedFiles) {
+              if (!fs.existsSync(file)) continue;
+              
+              const fileContent = fs.readFileSync(file, 'utf8');
+              const { data: frontmatter, content } = matter(fileContent);
+              
+              console.log('Publishing:', frontmatter.title);
+
+              // 1. Post to Hashnode First (Source of Truth)
+              let canonicalUrl = '';
+              try {
+                const hnResponse = await axios.post('https://gql.hashnode.com', {
+                  query: \`mutation PublishPost(\$input: PublishPostInput!) { publishPost(input: \$input) { post { url } } }\`,
+                  variables: {
+                    input: {
+                      title: frontmatter.title,
+                      subtitle: frontmatter.description,
+                      publicationId: process.env.HASHNODE_PUBLICATION_ID,
+                      contentMarkdown: content,
+                      tags: frontmatter.tags.map(t => ({ name: t, slug: t }))
+                    }
+                  }
+                }, { headers: { Authorization: process.env.HASHNODE_TOKEN } });
+                
+                canonicalUrl = hnResponse.data.data.publishPost.post.url;
+                console.log('Published to Hashnode:', canonicalUrl);
+              } catch (err) {
+                console.error('Hashnode failed:', err.response?.data || err.message);
+                continue;
+              }
+
+              // 2. Post to Dev.to (Accepts both Blogs and Logs)
+              try {
+                await axios.post('https://dev.to', {
+                  article: {
+                    title: frontmatter.title,
+                    body_markdown: content,
+                    published: true,
+                    tags: frontmatter.tags,
+                    canonical_url: canonicalUrl
+                  }
+                }, { headers: { 'api-key': process.env.DEVTO_TOKEN } });
+                console.log('Published to Dev.to');
+              } catch (err) {
+                console.error('Dev.to failed:', err.message);
+              }
+
+              // 3. Post to Medium (ONLY IF TYPE IS 'BLOG')
+              if (frontmatter.type === 'blog') {
+                try {
+                  // Get Medium User ID first
+                  const me = await axios.get('https://medium.com', {
+                    headers: { Authorization: \`Bearer \${process.env.MEDIUM_TOKEN}\` }
+                  });
+                  
+                  await axios.post(\`https://medium.com\${me.data.data.id}/posts\`, {
+                    title: frontmatter.title,
+                    contentFormat: 'markdown',
+                    content: \`# \${frontmatter.title}\n\n\${content}\`,
+                    canonicalUrl: canonicalUrl,
+                    tags: frontmatter.tags,
+                    publishStatus: 'public'
+                  }, { headers: { Authorization: \`Bearer \${process.env.MEDIUM_TOKEN}\` } });
+                  console.log('Published to Medium');
+                } catch (err) {
+                  console.error('Medium failed:', err.message);
+                }
+              } else {
+                console.log('Skipping Medium: File marked as log.');
+              }
+            }
+          }
+          publish();
+          "
